@@ -1,0 +1,174 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/assets/fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 100 900; /* 100~900까지 가변 */
+  font-display: swap; /* 렌더링 최적화 추가 (웹폰트 로딩 시 가시성을 유지) */
+  font-style: normal;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Pretendard", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* color */
+  --primary-color-100: #b3dcff;
+  --primary-color-200: #8ccafe;
+  --primary-color-300: #66b9fe;
+  --primary-color-400: #40a7fe;
+  --primary-color-500: #1a96fe;
+  --primary-color-600: #0183f0;
+  --primary-color-700: #016eca;
+  --primary-color-800: #01569e;
+  --primary-color-900: #013e72;
+  --primary-color-1000: #002646;
+  --primary-color-10: rgba(1, 110, 202, 0.1);
+  --primary-color-15: rgba(1, 110, 202, 0.15);
+  --primary-color-20: rgba(1, 110, 202, 0.2);
+  --primary-color-25: rgba(1, 110, 202, 0.25);
+  --primary-color-30: rgba(1, 110, 202, 0.3);
+  --primary-color-35: rgba(1, 110, 202, 0.35);
+  --primary-color-40: rgba(1, 110, 202, 0.4);
+  --primary-color-45: rgba(1, 110, 202, 0.45);
+  --primary-color-50: rgba(1, 110, 202, 0.5);
+  --primary-color-75: rgba(1, 110, 202, 0.75);
+
+  --secondary-color-100: #d7f2fe;
+  --secondary-color-200: #afe5fc;
+  --secondary-color-300: #88d7fb;
+  --secondary-color-400: #60caf9;
+  --secondary-color-500: #38bdf8;
+  --secondary-color-600: #12b0f7;
+  --secondary-color-700: #0899d9;
+  --secondary-color-800: #067db2;
+  --secondary-color-900: #05628c;
+  --secondary-color-1000: #044766;
+  --secondary-color-10: rgba(56, 189, 248, 0.1);
+  --secondary-color-15: rgba(56, 189, 248, 0.15);
+  --secondary-color-20: rgba(56, 189, 248, 0.2);
+  --secondary-color-25: rgba(56, 189, 248, 0.25);
+  --secondary-color-30: rgba(56, 189, 248, 0.3);
+  --secondary-color-35: rgba(56, 189, 248, 0.35);
+  --secondary-color-40: rgba(56, 189, 248, 0.4);
+  --secondary-color-45: rgba(56, 189, 248, 0.45);
+  --secondary-color-50: rgba(56, 189, 248, 0.5);
+  --secondary-color-75: rgba(56, 189, 248, 0.75);
+
+  --neutral-color-100: #f3f4f6;
+  --neutral-color-200: #d6d9e1;
+  --neutral-color-300: #b8bfcc;
+  --neutral-color-400: #99a4b8;
+  --neutral-color-500: #7a89a5;
+  --neutral-color-600: #5e6f8f;
+  --neutral-color-700: #495771;
+  --neutral-color-800: #344053;
+  --neutral-color-900: #202935;
+  --neutral-color-1000: #0d1216;
+  --neutral-color-10: rgba(13, 18, 22, 0.1);
+  --neutral-color-15: rgba(13, 18, 22, 0.15);
+  --neutral-color-20: rgba(13, 18, 22, 0.2);
+  --neutral-color-25: rgba(13, 18, 22, 0.25);
+  --neutral-color-30: rgba(13, 18, 22, 0.3);
+  --neutral-color-35: rgba(13, 18, 22, 0.35);
+  --neutral-color-40: rgba(13, 18, 22, 0.4);
+  --neutral-color-45: rgba(13, 18, 22, 0.45);
+  --neutral-color-50: rgba(13, 18, 22, 0.5);
+  --neutral-color-75: rgba(13, 18, 22, 0.75);
+
+  --semantic-warning-100: #ffe2b7;
+  --semantic-warning-200: #ffc46e;
+  --semantic-warning-300: #ffa726;
+  --semantic-warning-400: #f89400;
+  --semantic-warning-500: #cc7900;
+  --semantic-warning-600: #9f5f00;
+  --semantic-warning-700: #734400;
+  --semantic-warning-10: rgba(255, 167, 38, 0.1);
+  --semantic-warning-20: rgba(255, 167, 38, 0.2);
+  --semantic-warning-30: rgba(255, 167, 38, 0.3);
+  --semantic-warning-40: rgba(255, 167, 38, 0.4);
+  --semantic-warning-50: rgba(255, 167, 38, 0.5);
+
+  --semantic-error-100: #fac1c1;
+  --semantic-error-200: #f48282;
+  --semantic-error-300: #ef4444;
+  --semantic-error-400: #eb1919;
+  --semantic-error-500: #c41111;
+  --semantic-error-600: #990d0d;
+  --semantic-error-700: #6e0909;
+  --semantic-error-10: rgba(239, 68, 68, 0.1);
+  --semantic-error-20: rgba(239, 68, 68, 0.2);
+  --semantic-error-30: rgba(239, 68, 68, 0.3);
+  --semantic-error-40: rgba(239, 68, 68, 0.4);
+  --semantic-error-50: rgba(239, 68, 68, 0.5);
+
+  --semantic-success-100: #a0f7da;
+  --semantic-success-200: #71f3c8;
+  --semantic-success-300: #41efb5;
+  --semantic-success-400: #14e8a2;
+  --semantic-success-500: #10b981;
+  --semantic-success-600: #0b835b;
+  --semantic-success-700: #074d36;
+  --semantic-success-10: rgba(16, 185, 129, 0.1);
+  --semantic-success-20: rgba(16, 185, 129, 0.2);
+  --semantic-success-30: rgba(16, 185, 129, 0.3);
+  --semantic-success-40: rgba(16, 185, 129, 0.4);
+  --semantic-success-50: rgba(16, 185, 129, 0.5);
+
+  /*spacing*/
+  --spacing-0: 4px;
+  --spacing-1: 8px;
+  --spacing-2: 12px;
+  --spacing-3: 16px;
+  --spacing-4: 24px;
+  --spacing-5: 32px;
+
+  /*radius*/
+  --radius-xs: 2px;
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+  --radius-xl: 18px;
+
+  /*stroke*/
+  --stroke-thin: 0.5px;
+  --stroke-regular: 1px;
+  --stroke-medium: 1.5px;
+  --stroke-large: 2px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
