@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- 팀 로고 & 팀명 -->
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8f58486e-ddd8-4e89-8009-0a66d76a2df6" alt="TEAM_LOGO" width="200"/>
+</p>
 
-## Getting Started
+<h1 align="center">Hi-High</h1>
 
-First, run the development server:
+<p align="center">
+  <strong>서비스 주제</strong>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📌 주제
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> **서비스 주제**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠 사용 기술 스택
 
-To learn more about Next.js, take a look at the following resources:
+| Category | Stack |
+|----------|-------|
+| Frontend   | ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white) ![Emotion](https://img.shields.io/badge/Emotion-DB7093?style=flat&logo=emotion&logoColor=white) |
+| Backend    | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white) |
+| Infra      | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white) |
+| Design     | ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔗 주요 링크 - 아직 연결 안됨
 
-## Deploy on Vercel
+- 🔥 [서비스 바로가기](https://hi-high.vercel.app)
+- 🛠 [프론트엔드 레포](https://github.com/your-org/hi-high-fe)
+- ⚙️ [백엔드 레포](https://github.com/your-org/hi-high-be)
+- 📄 [기획 문서 Notion](https://notion.so/hi-high)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🙌 팀 소개
+
+| 이름 | 역할 |
+|------|------|
+| 오승민 | 프론트엔드 / 팀장 |
+| 유지희 | 프론트엔드 / 디자인 |
+| 오현우 | 백엔드 |
+| 신상현 | 프론트엔드 / 기획 |
+
+---
+
+## 🖼️ 서비스 미리보기
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8f58486e-ddd8-4e89-8009-0a66d76a2df6" alt="TEAM_LOGO" width="200"/>
+</p>
