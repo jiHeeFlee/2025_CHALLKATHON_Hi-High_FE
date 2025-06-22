@@ -17,6 +17,14 @@
 
 ---
 
+## 🖼️ 서비스 미리보기
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/40e4f83e-d28e-4b23-bdfb-e1555dad2378" alt="TEAM_INTRO" width="1200"/>
+</p>
+
+---
+
 ## 🛠 사용 기술 스택
 
 | Category | Stack |
@@ -45,11 +53,3 @@
 | 유지희 | 프론트엔드 / 디자인 |
 | 오현우 | 백엔드 |
 | 신상현 | 프론트엔드 / 기획 |
-
----
-
-## 🖼️ 서비스 미리보기
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/40e4f83e-d28e-4b23-bdfb-e1555dad2378" alt="TEAM_INTRO" width="1200"/>
-</p>
