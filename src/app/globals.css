@@ -4,8 +4,8 @@
 }
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("/assets/fonts/PretendardVariable.woff2") format("woff2");
+  font-family: 'Pretendard';
+  src: url('/assets/fonts/PretendardVariable.woff2') format('woff2');
   font-weight: 100 900; /* 100~900까지 가변 */
   font-display: swap; /* 렌더링 최적화 추가 (웹폰트 로딩 시 가시성을 유지) */
   font-style: normal;
@@ -21,13 +21,14 @@
 html,
 body {
   max-width: 100vw;
+  max-height: 100vh;
   overflow-x: hidden;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
