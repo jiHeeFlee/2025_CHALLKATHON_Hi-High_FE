@@ -2,15 +2,26 @@
 
 import styled from '@emotion/styled';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import { Title2, Body4 } from '@/app/typography';
-import { LANDING_CONTENTS, LANDING_BUTTON_MESSAGE } from '@/constants/auth';
+import { LANDING_CONTENTS } from '@/constants/auth';
 
 import LineBar from '../status/LineBar';
 import AuthButton from '../button/AuthButton';
 
 export default function Login() {
   const router = useRouter();
+
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+
+  const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${redirectUri}&response_type=code&scope=email`;
+
+  const handleGoogleLogin = () => {
+    window.location.href = googleURL;
+  };
+
   return (
     <Container>
       <LineBar total={3} current={3} />
@@ -18,11 +29,12 @@ export default function Login() {
         <HeaderTitle>{LANDING_CONTENTS[3].title}</HeaderTitle>
         <HeaderBody>{LANDING_CONTENTS[3].body}</HeaderBody>
       </Header>
-      <SignupButton
-        content="test-signup"
-        onClick={() => router.push('signup')}
-      />
-      <LoginButton content="test-login" onClick={() => router.push('login')} />
+
+      <ImageContainer>
+      <Body src="/assets/images/RANDING.png" alt="랜딩 이미지" />
+
+      <LoginButton content="Google 계정으로 계속" onClick={handleGoogleLogin} />
+      </ImageContainer>
     </Container>
   );
 }
@@ -32,17 +44,18 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding-top: 1rem;
+  padding-top: 2rem;
+  gap: 2.8rem;
 
-  gap: 3rem;
-
-  min-height: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
 `;
 
 const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.6rem;
 `;
 
 const HeaderTitle = styled.span`
@@ -53,39 +66,41 @@ const HeaderTitle = styled.span`
 const HeaderBody = styled.span`
   ${Body4}
   color: var(--neutral-color-500);
+  text-align: center;
+  white-space: pre-line;
 `;
 
-const SignupButton = styled(AuthButton)`
-  color: #fff;
-  background-color: var(--primary-color-400);
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const Body = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: -2.5rem; 
+`;
+
+const LoginButton = styled(AuthButton)`
+  color: #ffffff;
+  background-color: var(--primary-color-500);
+  border-radius: 20px;
+  position: absolute;
+  bottom: 5rem;
   border: none;
 
-  :hover {
+
+  &:hover {
     background-color: var(--primary-color-600);
     transition: all 0.2s ease-in-out;
   }
 
-  :active {
+  &:active {
     background-color: var(--primary-color-800);
-    transition: all 0.2s ease-in-out;
-  }
-`;
-
-const LoginButton = styled(AuthButton)`
-  color: var(--primary-color-500);
-  background-color: var(--primary-color-20);
-  border: 1px solid var(--primary-color-400);
-
-  :hover {
-    background-color: var(--primary-color-25);
-    border: 1px solid var(--primary-color-500);
-    transition: all 0.2s ease-in-out;
-  }
-
-  :active {
-    color: #fff;
-    background-color: var(--primary-color-50);
-    border: 1px solid var(--primary-color-700);
     transition: all 0.2s ease-in-out;
   }
 `;
