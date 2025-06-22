@@ -6,14 +6,14 @@
 <h1 align="center">Hi-High</h1>
 
 <p align="center">
-  <strong>서비스 주제</strong>
+  <strong>hai</strong>
 </p>
 
 ---
 
 ## 📌 주제
 
-> **서비스 주제**
+> **AI 멘토링 서비스 & 챗GPT 기반 개인 맞춤형 커리어 로드맵**
 
 ---
 
