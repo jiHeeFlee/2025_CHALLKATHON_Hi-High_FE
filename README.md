@@ -51,5 +51,5 @@
 ## 🖼️ 서비스 미리보기
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/8f58486e-ddd8-4e89-8009-0a66d76a2df6" alt="TEAM_LOGO" width="200"/>
+  <img src="https://github.com/user-attachments/assets/875573df-1f13-49f2-9b23-81147c8bca3e" alt="TEAM_LOGO" width="1200"/>
 </p>
