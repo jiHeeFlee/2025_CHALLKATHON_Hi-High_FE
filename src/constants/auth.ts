@@ -17,7 +17,7 @@ export const LANDING_CONTENTS = {
   },
   3: {
     title: '시작해볼까요?',
-    body: '서비스 한줄 소개 \n어쩌구저쩌구 서비스명'
+    body: 'AI 멘토링 서비스 &\n 챗GPT 기반 개인 맞춤형 커리어 로드맵'
   }
 };
 
