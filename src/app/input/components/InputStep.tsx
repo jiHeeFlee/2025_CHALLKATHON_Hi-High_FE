@@ -7,6 +7,7 @@ import AuthButton from '@/components/button/AuthButton'
 import { Title2, Body4 } from '@/app/typography'
 import SearchBar from '@/app/input/components/SearchBar'
 import Keyword from '@/app/input/components/Keyword'
+import { useEffect } from 'react'
 
 interface Props {
   title: string
@@ -29,6 +30,13 @@ export default function InputStep({
 }: Props) {
   const [inputs, setInputs] = useState<string[]>([])
   const [value, setValue] = useState('')
+
+  useEffect(() => {
+    setInputs([])
+    setValue('')
+  }, [currentStep])
+
+
 
   const handleAdd = (input: string) => {
   const trimmed = input.trim()
