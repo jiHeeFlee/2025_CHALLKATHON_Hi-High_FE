@@ -15,9 +15,9 @@ export default function GoogleLoginRedirect() {
     if (accessToken && refreshToken) {
       setCookie('accessToken', accessToken);
       setCookie('refreshToken', refreshToken);
-      router.push('/input'); // 다음 페이지로 이동
+      router.push('/input'); 
     } else {
-      router.push('/login'); // 실패 시 로그인 페이지로
+      router.push('/login'); 
     }
   }, [accessToken, refreshToken, router]);
 
