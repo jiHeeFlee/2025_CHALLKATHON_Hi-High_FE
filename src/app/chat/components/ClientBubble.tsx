@@ -25,6 +25,7 @@ const Wrapper = styled.div`
   display: flex;
   align-content: center;
   text-align: left;
+  width: fit-content;
   max-width: 220px;
 
   padding: 12px;
