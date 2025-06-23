@@ -2,36 +2,24 @@
 
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import instance from '@/auth/axios';
 import { setCookie } from '@/auth/cookie';
 
 export default function GoogleLoginRedirect() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const code = searchParams.get('code');
+
+  const accessToken = searchParams.get('access_token');
+  const refreshToken = searchParams.get('refresh_token');
 
   useEffect(() => {
-    const postData = async () => {
-      if (!code) return;
+    if (accessToken && refreshToken) {
+      setCookie('accessToken', accessToken);
+      setCookie('refreshToken', refreshToken);
+      router.push('/input'); // 다음 페이지로 이동
+    } else {
+      router.push('/login'); // 실패 시 로그인 페이지로
+    }
+  }, [accessToken, refreshToken, router]);
 
-      try {
-        const res = await instance.post('/api/auth/google', {
-          authorizationCode: code,
-        });
-
-        const { accessToken, refreshToken } = res.data;
-        setCookie('accessToken', accessToken);
-        setCookie('refreshToken', refreshToken);
-
-        router.push('/main');
-      } catch (error) {
-        console.error('로그인 실패:', error);
-        router.push('/login');
-      }
-    };
-
-    postData();
-  }, [code, router]);
-
-  return <div>로그인 중입니다...</div>; // 간단한 로딩 표시
+  return <div>로그인 중입니다...</div>;
 }

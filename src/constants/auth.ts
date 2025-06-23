@@ -67,3 +67,22 @@ export const SIGNUP_CONTENTS = {
     caption: '비밀번호와 닉네임을 입력해주세요.'
   }
 };
+
+// ===== [ input ] =====
+export const INPUT_STEPS = [
+  {
+    highlight: '관심사',
+    subtitle: '맞춤형 서비스를 위해 꼭 필요해요!',
+    placeholder: '관심 키워드 입력',
+  },
+  {
+    highlight: '목표',
+    subtitle: '맞춤형 서비스를 위해 꼭 필요해요!',
+    placeholder: '목표 키워드 입력',
+  },
+  {
+    highlight: '희망 직종',
+    subtitle: '맞춤형 서비스를 위해 꼭 필요해요!',
+    placeholder: '직무 키워드 입력',
+  },
+]
