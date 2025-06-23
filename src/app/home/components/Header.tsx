@@ -5,7 +5,12 @@ import { Title1, Title3, Caption1 } from '@/app/typography';
 
 import WhiteLogo from '@/assets/whiteLogo.svg';
 
-export default function Header() {
+interface HeaderProps {
+  user_name: string;
+  date: string;
+}
+
+export default function Header({ user_name, date }: HeaderProps) {
   return (
     <Container>
       <StyledLogo>
@@ -13,17 +18,19 @@ export default function Header() {
       </StyledLogo>
       <TitleWrapper>
         <NameWrapper>
-          <UserName>승민</UserName>
+          <UserName>{user_name}</UserName>
           <Message>님</Message>
         </NameWrapper>
         <Message>요즘 이런 이야기들이 있어요</Message>
       </TitleWrapper>
-      <Date>2025.06.23 21시 기준</Date>
+      <Date>{date}</Date>
     </Container>
   );
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 20.75rem;
   flex-shrink: 0;
@@ -31,7 +38,6 @@ const Container = styled.div`
   justify-content: space-between;
 
   padding: 28px 43px;
-  gap: 83px;
 
   border-radius: 0rem 0rem 1.875rem 1.875rem;
   color: #fff;
@@ -46,6 +52,8 @@ const StyledLogo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+
+  margin-bottom: 73px;
 `;
 
 const TitleWrapper = styled.div`
