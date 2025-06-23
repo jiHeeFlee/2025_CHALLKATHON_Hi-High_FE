@@ -11,15 +11,11 @@ import LineBar from '../status/LineBar';
 import AuthButton from '../button/AuthButton';
 
 export default function Login() {
-  const router = useRouter();
-
-  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
-
-  const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${redirectUri}&response_type=code&scope=email`;
+  
+  const googleURL = `https://hihigh.lion.it.kr/oauth2/authorization/google`;
 
   const handleGoogleLogin = () => {
-    window.location.href = googleURL;
+    window.location.href = googleURL ;
   };
 
   return (

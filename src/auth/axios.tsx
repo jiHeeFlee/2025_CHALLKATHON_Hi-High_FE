@@ -9,7 +9,7 @@ import axios, {
 import { Cookies } from 'react-cookie';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8080', // 백엔드 주소
+  baseURL: 'https://hihigh.lion.it.kr', 
 });
 
 instance.interceptors.request.use(
@@ -49,7 +49,7 @@ instance.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          const res = await axios.post('https://api.com/api/token/refresh/', {
+          const res = await axios.post('https://hihigh.lion.it.kr/api/auth/refresh', {
             refresh_token: refreshToken,
           });
 
