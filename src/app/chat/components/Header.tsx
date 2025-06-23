@@ -1,6 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useRouter } from 'next/navigation';
 import BackIcon from '@/assets/BackIcon.svg';
 import SmileIcon from '@/assets/SmailIcon.svg';
 import { Title6 } from '@/app/typography';
@@ -10,9 +11,11 @@ interface HeaderProps {
 }
 
 export default function Header({ state_message }: HeaderProps) {
+  const router = useRouter();
+
   return (
     <Container>
-      <StyledBackIcon />
+      <StyledBackIcon onClick={() => router.back()} />
       <FaceState>
         <SmileIcon />
         <Message>{state_message}</Message>
@@ -33,15 +36,11 @@ const Container = styled.div`
   gap: 5.81rem;
 
   color: var(--neutral-color-300);
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.35) 3.85%,
-    rgba(255, 255, 255, 0.68) 12.02%,
-    rgba(255, 255, 255, 0.84) 19.47%,
-    rgba(255, 255, 255, 0.92) 23.2%,
-    #fff 33.65%
-  );
+  border-radius: 0rem 0rem 1.5625rem 1.5625rem;
+  background: #fff;
+
+  box-shadow: 0px 4px 8px 1px var(----neutral-color-10, rgba(13, 18, 22, 0.1));
+
   :hover {
     color: var(--neutral-color-500);
     transition: all 0.2s ease-in-out;
