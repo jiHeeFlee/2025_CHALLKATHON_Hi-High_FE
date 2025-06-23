@@ -1,13 +1,44 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useState } from 'react';
+
 import SendIcon from '@/assets/SendIcon.svg';
 
-export default function ChatInput() {
+interface ChatInputProps {
+  onClick: (value: string) => void;
+  onScrollBottom?: () => void;
+}
+
+export default function ChatInput({ onClick, onScrollBottom }: ChatInputProps) {
+  const [message, setMessage] = useState<string>('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
+
+  const handleSendButton = () => {
+    if (!message.trim()) return;
+    onClick(message);
+    setMessage('');
+    onScrollBottom?.();
+  };
+
+  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendButton();
+    }
+  };
+
   return (
     <Container>
-      <Input placeholder="어떤걸 알려드릴까요?" />
-      <SendButton>
+      <Input
+        placeholder="어떤걸 알려드릴까요?"
+        value={message}
+        onChange={handleInputChange}
+        onKeyDown={handleEnterKeyDown}
+      />
+      <SendButton onClick={handleSendButton}>
         <SendIcon />
       </SendButton>
     </Container>

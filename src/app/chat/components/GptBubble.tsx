@@ -20,6 +20,7 @@ const Container = styled.div`
   display: flex;
   align-content: center;
   text-align: left;
+  width: fit-content;
   max-width: 17.8125rem;
 
   padding: 12px;
