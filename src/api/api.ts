@@ -32,184 +32,126 @@ const api = ky.create({
   }
 });
 
-// 로그인 API
-export interface LoginCredentials {
-  id: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  success: boolean;
-  token?: string;
-  user?: {
-    id: string;
-    email: string;
-    name: string;
-  };
-  message?: string;
-}
-
-// 회원가입 API
-export interface SignupCredentials {
-  id: string;
-  password: string;
+export interface UserInfo {
+  id: number;
+  loginId: string;
+  userRole: string;
   name: string;
-  profileImage?: File;
-}
-
-export interface SignupResponse {
-  success: boolean;
-  user?: {
-    id: string;
-    name: string;
-  };
-  message?: string;
-}
-
-// GET 회원 정보
-export interface GetProfileResponse extends SignupCredentials {}
-
-export const authAPI = {
-  // 로그인
-  login: async (credentials: LoginCredentials): Promise<LoginResponse> => {
-    try {
-      const response = await api
-        .post('로그인 API 주소', {
-          json: credentials
-        })
-        .json<LoginResponse>();
-
-      // 토큰 저장
-      if (response.success && response.token) {
-        localStorage.setItem('token', response.token);
-      }
-
-      return response;
-    } catch (error) {
-      console.error('Login error:', error);
-      throw error;
-    }
-  },
-  // 로그아웃
-  logout: async (): Promise<void> => {
-    try {
-      // 토큰 제거
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('token');
-        // 로그인 페이지로 리다이렉트
-        window.location.href = '/';
-      }
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  },
-  // 회원가입
-  signup: async (credentials: SignupCredentials): Promise<SignupResponse> => {
-    try {
-      const formData = new FormData();
-      formData.append('id', credentials.id);
-      formData.append('password', credentials.password);
-      formData.append('name', credentials.name);
-
-      if (credentials.profileImage) {
-        formData.append('profileImage', credentials.profileImage);
-      }
-
-      const response = await api
-        .post('회원가입 API 주소', {
-          body: formData
-        })
-        .json<SignupResponse>();
-
-      return response;
-    } catch (error) {
-      console.error('Signup error:', error);
-      throw error;
-    }
-  },
-
-  // 사용자 정보 조회
-  getProfile: async () => {
-    return api.get('프로필 조회 주소').json<GetProfileResponse>();
-  },
-
-  // ID 중복 확인
-  checkIdAvailability: async (
-    id: string
-  ): Promise<{ available: boolean; message?: string }> => {
-    try {
-      const response = await api
-        .get(`ID 중복 확인 API 주소`)
-        .json<{ available: boolean; message?: string }>();
-      return response;
-    } catch (error) {
-      console.error('ID check error:', error);
-      throw error;
-    }
-  }
-};
-
-// 사용자 추가정보 업데이트 API
-export interface UpdateInterestsRequest {
+  gender: string;
+  birthYear: string;
+  isPrivateInformAgreed: boolean;
+  provider: string;
+  providerId: string;
   interests: string;
-}
-
-export interface UpdateGoalsRequest {
   goals: string;
-}
-
-export interface UpdateDesiredOccupationRequest {
   desiredOccupation: string;
 }
 
-export interface UpdateUserInfoResponse {
-  success: boolean;
-  message?: string;
-}
-
-export const userInfoAPI = {
-  // 관심사 업데이트
-  updateInterests: async (
-    data: UpdateInterestsRequest
-  ): Promise<UpdateUserInfoResponse> => {
+// 마이페이지 API 함수들
+export const mypageAPI = {
+  // 사용자 정보 조회
+  getUserInfo: async (): Promise<UserInfo> => {
     try {
-      const response = await api
-        .put('api/auth/interests', { json: data })
-        .json<UpdateUserInfoResponse>();
+      const response = await api.get('api/auth/user-info').json<UserInfo>();
       return response;
     } catch (error) {
-      console.error('Interests update error:', error);
+      console.error('사용자 정보 불러오기 실패:', error);
+      throw error;
+    }
+  },
+
+  // 관심사 업데이트
+  updateInterests: async (interests: string): Promise<void> => {
+    try {
+      await api.put('api/auth/interests', {
+        json: { interests }
+      });
+      console.log('관심사 업데이트 성공');
+    } catch (error) {
+      console.error('관심사 업데이트 실패:', error);
       throw error;
     }
   },
 
   // 목표 업데이트
-  updateGoals: async (
-    data: UpdateGoalsRequest
-  ): Promise<UpdateUserInfoResponse> => {
+  updateGoals: async (goals: string): Promise<void> => {
     try {
-      const response = await api
-        .put('api/auth/goals', { json: data })
-        .json<UpdateUserInfoResponse>();
-      return response;
+      await api.put('api/auth/goals', {
+        json: { goals }
+      });
+      console.log('목표 업데이트 성공');
     } catch (error) {
-      console.error('Goals update error:', error);
+      console.error('목표 업데이트 실패:', error);
       throw error;
     }
   },
 
   // 희망직종 업데이트
-  updateDesiredOccupation: async (
-    data: UpdateDesiredOccupationRequest
-  ): Promise<UpdateUserInfoResponse> => {
+  updateDesiredOccupation: async (desiredOccupation: string): Promise<void> => {
     try {
-      const response = await api
-        .put('api/auth/desired-occupation', { json: data })
-        .json<UpdateUserInfoResponse>();
-      return response;
+      await api.put('api/auth/desired-occupation', {
+        json: { desiredOccupation }
+      });
+      console.log('희망직종 업데이트 성공');
     } catch (error) {
-      console.error('Desired occupation update error:', error);
+      console.error('희망직종 업데이트 실패:', error);
       throw error;
+    }
+  },
+
+  // 관심사 삭제
+  deleteInterests: async (): Promise<void> => {
+    try {
+      await api.delete('api/auth/interests');
+      console.log('관심사 삭제 성공');
+    } catch (error) {
+      console.error('관심사 삭제 실패:', error);
+      throw error;
+    }
+  },
+
+  // 목표 삭제
+  deleteGoals: async (): Promise<void> => {
+    try {
+      await api.delete('api/auth/goals');
+      console.log('목표 삭제 성공');
+    } catch (error) {
+      console.error('목표 삭제 실패:', error);
+      throw error;
+    }
+  },
+
+  // 희망직종 삭제
+  deleteDesiredOccupation: async (): Promise<void> => {
+    try {
+      await api.delete('api/auth/desired-occupation');
+      console.log('희망직종 삭제 성공');
+    } catch (error) {
+      console.error('희망직종 삭제 실패:', error);
+      throw error;
+    }
+  },
+
+  // 계정 삭제
+  deleteAccount: async (): Promise<void> => {
+    try {
+      await api.delete('api/auth/account');
+      console.log('계정 삭제 성공');
+    } catch (error) {
+      console.error('계정 삭제 실패:', error);
+      throw error;
+    }
+  },
+
+  // 로그아웃
+  logout: (): void => {
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        window.location.href = '/start';
+      }
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
     }
   }
 };
