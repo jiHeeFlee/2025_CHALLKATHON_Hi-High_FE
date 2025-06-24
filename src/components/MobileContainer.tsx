@@ -12,9 +12,14 @@ export default function MobileContainer({ children }: MobileContainerProps) {
 }
 
 const Wrapper = styled.div`
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
   width: 390px; // iphone 14 너비
-  /* min-height: 844px; */
-  min-height: 100vh;
+  height: 812px;
 
   margin: 0 auto;
   background-color: #f5f5f5;
