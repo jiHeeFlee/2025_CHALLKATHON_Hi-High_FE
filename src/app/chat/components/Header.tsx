@@ -27,8 +27,10 @@ export default function Header({ state_message }: HeaderProps) {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
 
   width: 100%;
 
@@ -52,7 +54,11 @@ const Container = styled.div`
   }
 `;
 
-const StyledBackIcon = styled(BackIcon)``;
+const StyledBackIcon = styled(BackIcon)`
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+`;
 
 const FaceState = styled.div`
   display: flex;
