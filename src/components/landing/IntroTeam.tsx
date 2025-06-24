@@ -8,12 +8,11 @@ import { LANDING_CONTENTS } from '@/constants/auth';
 export default function IntroTeam() {
   return (
     <Container>
-      <LineBar total={3} current={2} />
+      <Body src="/assets/images/TEAM_LOGO.png" alt="렌딩페이지 두번째 이미지" />
       <Header>
         <HeaderTitle>{LANDING_CONTENTS[2].title}</HeaderTitle>
         <HeaderBody>{LANDING_CONTENTS[2].body}</HeaderBody>
       </Header>
-      <Body src="/assets/images/TEAM_LOGO.png" alt="렌딩페이지 두번째 이미지" />
     </Container>
   );
 }
@@ -21,17 +20,25 @@ export default function IntroTeam() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
 
-  padding-top: 1rem;
+  height: 100%;
+
+  /* padding-top: 1rem; */
 
   gap: 3rem;
+  background-color: #fff;
 `;
 
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  width: 100%;
+
+  white-space: pre-line;
+  padding: 0 32px;
 `;
 
 const HeaderTitle = styled.span`
@@ -49,4 +56,7 @@ const Body = styled.img`
   height: auto;
   object-fit: cover;
   border-radius: 8px;
+
+  margin-left: 10px;
+  margin-top: 60px;
 `;
