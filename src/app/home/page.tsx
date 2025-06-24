@@ -1,6 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useState, useEffect } from 'react';
 
 import Header from './components/Header';
 import KeywordList from './components/KeywordList';
@@ -65,18 +66,28 @@ const mockKeywordList = {
 };
 
 export default function Home() {
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    // 최초 렌더링 후에 innerHeight 읽기
+    setHeight(window.innerHeight);
+  }, []);
   return (
-    <Container>
-      <Header user_name={moke.user_name} date={moke.date} />
-      <KeywordList
-        keyword={mockKeywordList.keyword}
-        cards={mockKeywordList.cards}
-      />
-      <KeywordList
-        keyword={mockKeywordList.keyword}
-        cards={mockKeywordList.cards}
-      />
-      <NavigationBar />
+    <Container style={{ height: `${height}px` }}>
+      <ScrollWrapper>
+        <Header user_name={moke.user_name} date={moke.date} />
+        <ContentsArea>
+          <KeywordList
+            keyword={mockKeywordList.keyword}
+            cards={mockKeywordList.cards}
+          />
+          <KeywordList
+            keyword={mockKeywordList.keyword}
+            cards={mockKeywordList.cards}
+          />
+        </ContentsArea>
+      </ScrollWrapper>
+      <StyledNavigationBar />
     </Container>
   );
 }
@@ -87,4 +98,39 @@ const Container = styled.div`
   align-content: center;
 
   background-color: #fff;
+
+  /* overflow-y: scroll; */
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const ScrollWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Container 안에서 꽉 참 */
+  overflow-y: auto; /* 헤더+컨텐츠만 세로 스크롤 */
+  padding-bottom: 4.6875rem;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ContentsArea = styled.div`
+  all: unset;
+
+  height: 100%;
+  flex: 1;
+  /* overflow-y: auto; */
+  padding-bottom: 4.6875rem;
+`;
+
+const StyledNavigationBar = styled(NavigationBar)`
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  z-index: 10;
 `;
