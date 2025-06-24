@@ -25,31 +25,41 @@ const mockKeywordList = {
       thumbnail_url:
         'https://images.unsplash.com/photo-1581093588401-22d84d84f5e3?auto=format&fit=crop&w=400&q=80',
       source: 'BBC',
-      title: 'AI가 바꾼 뉴스 제작 현장'
+      title: 'AI가 바꾼 뉴스 제작 현장',
+      key_word: '프론트',
+      id: 1
     },
     {
       thumbnail_url:
         'https://images.unsplash.com/photo-1610484826917-29f643f80cd3?auto=format&fit=crop&w=400&q=80',
       source: 'CNN',
-      title: 'ChatGPT의 진짜 가능성과 한계'
+      title: 'ChatGPT의 진짜 가능성과 한계',
+      key_word: '프론트',
+      id: 2
     },
     {
       thumbnail_url:
         'https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=400&q=80',
       source: 'The Verge',
-      title: '메타버스, 트렌드인가 사라질까?'
+      title: '메타버스, 트렌드인가 사라질까?',
+      key_word: '백',
+      id: 1
     },
     {
       thumbnail_url:
         'https://images.unsplash.com/photo-1603791452906-c5d7c9c09774?auto=format&fit=crop&w=400&q=80',
       source: 'Wired',
-      title: '스마트폰 혁신의 끝은 어디인가'
+      title: '스마트폰 혁신의 끝은 어디인가',
+      key_word: '프론트',
+      id: 1
     },
     {
       thumbnail_url:
         'https://images.unsplash.com/photo-1629442828234-3530f927fbf7?auto=format&fit=crop&w=400&q=80',
       source: 'TechCrunch',
-      title: '스타트업 투자, 2024 흐름은?'
+      title: '스타트업 투자, 2024 흐름은?',
+      key_word: '프론트',
+      id: 1
     }
   ]
 };

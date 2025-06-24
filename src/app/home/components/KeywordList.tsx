@@ -11,6 +11,8 @@ interface KeywordListProps {
     thumbnail_url: string;
     source: string;
     title: string;
+    key_word: string;
+    id: number;
   }[];
 }
 
@@ -30,6 +32,8 @@ export default function KeywordList({ keyword, cards }: KeywordListProps) {
             thumbnail_url={card.thumbnail_url}
             source={card.source}
             title={card.title}
+            key_word={card.key_word}
+            id={card.id}
           />
         ))}
       </List>
