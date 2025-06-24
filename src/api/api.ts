@@ -90,15 +90,17 @@ export const authAPI = {
       throw error;
     }
   },
-
   // 로그아웃
   logout: async (): Promise<void> => {
     try {
-      await api.post('로그아웃 API 주소소');
+      // 토큰 제거
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        // 로그인 페이지로 리다이렉트
+        window.location.href = '/';
+      }
     } catch (error) {
       console.error('Logout error:', error);
-    } finally {
-      localStorage.removeItem('token');
     }
   },
   // 회원가입
@@ -142,6 +144,71 @@ export const authAPI = {
       return response;
     } catch (error) {
       console.error('ID check error:', error);
+      throw error;
+    }
+  }
+};
+
+// 사용자 추가정보 업데이트 API
+export interface UpdateInterestsRequest {
+  interests: string;
+}
+
+export interface UpdateGoalsRequest {
+  goals: string;
+}
+
+export interface UpdateDesiredOccupationRequest {
+  desiredOccupation: string;
+}
+
+export interface UpdateUserInfoResponse {
+  success: boolean;
+  message?: string;
+}
+
+export const userInfoAPI = {
+  // 관심사 업데이트
+  updateInterests: async (
+    data: UpdateInterestsRequest
+  ): Promise<UpdateUserInfoResponse> => {
+    try {
+      const response = await api
+        .put('api/auth/interests', { json: data })
+        .json<UpdateUserInfoResponse>();
+      return response;
+    } catch (error) {
+      console.error('Interests update error:', error);
+      throw error;
+    }
+  },
+
+  // 목표 업데이트
+  updateGoals: async (
+    data: UpdateGoalsRequest
+  ): Promise<UpdateUserInfoResponse> => {
+    try {
+      const response = await api
+        .put('api/auth/goals', { json: data })
+        .json<UpdateUserInfoResponse>();
+      return response;
+    } catch (error) {
+      console.error('Goals update error:', error);
+      throw error;
+    }
+  },
+
+  // 희망직종 업데이트
+  updateDesiredOccupation: async (
+    data: UpdateDesiredOccupationRequest
+  ): Promise<UpdateUserInfoResponse> => {
+    try {
+      const response = await api
+        .put('api/auth/desired-occupation', { json: data })
+        .json<UpdateUserInfoResponse>();
+      return response;
+    } catch (error) {
+      console.error('Desired occupation update error:', error);
       throw error;
     }
   }
