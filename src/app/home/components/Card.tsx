@@ -32,6 +32,7 @@ export default function Card({
 }
 
 const CardContainer = styled.div`
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -51,6 +52,10 @@ const CardContainer = styled.div`
   :active {
     background-color: var(--primary-color-10);
     transition: all 0.2s ease-in-out;
+  }
+
+  :first-child {
+    margin-left: 25px;
   }
 `;
 
