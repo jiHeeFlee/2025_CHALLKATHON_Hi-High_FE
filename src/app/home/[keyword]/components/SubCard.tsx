@@ -6,6 +6,7 @@ interface SubCardProps {
   thumbnail_url: string;
   source: string;
   title: string;
+  onClick?: () => void;
 }
 
 export default function SubCard({ thumbnail_url, source, title }: SubCardProps) {
