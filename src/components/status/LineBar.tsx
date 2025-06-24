@@ -17,14 +17,17 @@ export default function LineBar({ total, current }: LineBarProps) {
 }
 
 const Container = styled.div`
+  z-index: 10;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 
-  margin: 0;
   padding: 0;
   gap: 4px;
+
+  margin-top: 3rem;
 `;
 
 const Line = styled.div<{ isActive: boolean }>`
