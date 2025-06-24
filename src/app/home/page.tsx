@@ -66,14 +66,8 @@ const mockKeywordList = {
 };
 
 export default function Home() {
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    // 최초 렌더링 후에 innerHeight 읽기
-    setHeight(window.innerHeight);
-  }, []);
   return (
-    <Container style={{ height: `${height}px` }}>
+    <Container>
       <ScrollWrapper>
         <Header user_name={moke.user_name} date={moke.date} />
         <ContentsArea>
@@ -96,19 +90,21 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-content: center;
+  position: relative;
 
   background-color: #fff;
 
-  /* overflow-y: scroll; */
-  height: 100vh;
+  height: 100%;
+
   overflow: hidden;
 `;
 
 const ScrollWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%; /* Container 안에서 꽉 참 */
-  overflow-y: auto; /* 헤더+컨텐츠만 세로 스크롤 */
+  height: 100%;
+
+  overflow-y: auto;
   padding-bottom: 4.6875rem;
 
   scrollbar-width: none;
@@ -121,16 +117,13 @@ const ScrollWrapper = styled.div`
 const ContentsArea = styled.div`
   all: unset;
 
-  height: 100%;
+  height: fit-content;
   flex: 1;
-  /* overflow-y: auto; */
-  padding-bottom: 4.6875rem;
 `;
 
 const StyledNavigationBar = styled(NavigationBar)`
-  position: fixed;
+  position: absolute;
   bottom: 0;
 
-  width: 100%;
   z-index: 10;
 `;
