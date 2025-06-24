@@ -1,17 +1,29 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useRouter } from 'next/navigation';
+
 import { Title6, Caption2 } from '@/app/typography';
 
 interface CardProps {
   thumbnail_url: string;
   source: string;
   title: string;
+  key_word: string;
+  id: number;
 }
 
-export default function Card({ thumbnail_url, source, title }: CardProps) {
+export default function Card({
+  thumbnail_url,
+  source,
+  title,
+  key_word,
+  id
+}: CardProps) {
+  const router = useRouter();
+
   return (
-    <CardContainer>
+    <CardContainer onClick={() => router.push(`/home/${key_word}/${id}`)}>
       <CardImage thumbnail_url={thumbnail_url} />
       <CardSource>{source}</CardSource>
       <CardTitle>{title}</CardTitle>
@@ -20,6 +32,7 @@ export default function Card({ thumbnail_url, source, title }: CardProps) {
 }
 
 const CardContainer = styled.div`
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -40,10 +53,15 @@ const CardContainer = styled.div`
     background-color: var(--primary-color-10);
     transition: all 0.2s ease-in-out;
   }
+
+  :first-child {
+    margin-left: 25px;
+  }
 `;
 
 const CardImage = styled.div<{ thumbnail_url: string }>`
-  width: 245px;
+  /* width: 245px; */
+  width: 100%;
   height: 135px;
 
   border-radius: 20px;

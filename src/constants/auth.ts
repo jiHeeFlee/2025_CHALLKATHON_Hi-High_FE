@@ -8,12 +8,12 @@ export const LANDING_BUTTON_MESSAGE = {
 
 export const LANDING_CONTENTS = {
   1: {
-    title: '랜딩페이지',
-    body: '어쩌구저쩌구 \n 흠냐링 냠냐링 알안랑ㄹ'
+    title: 'hai',
+    body: '커리어를 높이는 첫 인사'
   },
   2: {
     title: '반가워요 !',
-    body: '당신의 시간 어쩌구 페인포인트를 해결해줄 \n팀 하이하이(hi,high)입니다.'
+    body: '커리어의 ‘하이’를 함께 만드는 팀\n하이하이(hi, High)입니다.'
   },
   3: {
     title: '시작해볼까요?',
@@ -73,16 +73,16 @@ export const INPUT_STEPS = [
   {
     highlight: '관심사',
     subtitle: '맞춤형 서비스를 위해 꼭 필요해요!',
-    placeholder: '관심 키워드 입력',
+    placeholder: '관심 키워드 입력'
   },
   {
     highlight: '목표',
     subtitle: '맞춤형 서비스를 위해 꼭 필요해요!',
-    placeholder: '목표 키워드 입력',
+    placeholder: '목표 키워드 입력'
   },
   {
     highlight: '희망 직종',
     subtitle: '맞춤형 서비스를 위해 꼭 필요해요!',
-    placeholder: '직무 키워드 입력',
-  },
-]
+    placeholder: '직무 키워드 입력'
+  }
+];

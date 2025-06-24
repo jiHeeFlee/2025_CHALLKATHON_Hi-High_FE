@@ -53,6 +53,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 4.6875rem;
+  padding: 15px 0;
 
   border-radius: 1.5625rem 1.5625rem 0rem 0rem;
   background: #fff;

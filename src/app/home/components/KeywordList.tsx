@@ -1,6 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Title4, Body4 } from '@/app/typography';
 import Card from './Card';
@@ -11,6 +12,8 @@ interface KeywordListProps {
     thumbnail_url: string;
     source: string;
     title: string;
+    key_word: string;
+    id: number;
   }[];
 }
 
@@ -30,6 +33,8 @@ export default function KeywordList({ keyword, cards }: KeywordListProps) {
             thumbnail_url={card.thumbnail_url}
             source={card.source}
             title={card.title}
+            key_word={card.key_word}
+            id={card.id}
           />
         ))}
       </List>
@@ -45,6 +50,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  /* overflow: scroll; */
 `;
 
 const Header = styled.div`
@@ -84,8 +91,8 @@ const List = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: max-content;
 
-  min-width: max-content;
   overflow-x: scroll;
 
   scrollbar-width: none;

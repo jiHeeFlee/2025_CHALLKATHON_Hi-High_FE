@@ -8,12 +8,11 @@ import { LANDING_CONTENTS } from '@/constants/auth';
 export default function IntroService() {
   return (
     <Container>
-      <LineBar total={3} current={1} />
       <Header>
-        <HeaderTitle>{LANDING_CONTENTS[1].title}</HeaderTitle>
         <HeaderBody>{LANDING_CONTENTS[1].body}</HeaderBody>
+        <HeaderTitle>{LANDING_CONTENTS[1].title}</HeaderTitle>
       </Header>
-      <Body src="/assets/images/RANDING.png" alt="렌딩페이지 첫번째 이미지" />
+      <Body src="/assets/images/Logo.svg" alt="렌딩페이지 첫번째 이미지" />
     </Container>
   );
 }
@@ -22,16 +21,22 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  padding-top: 1rem;
+  justify-content: flex-start;
+  /* justify-content: center; */
 
   gap: 3rem;
+  height: 100%;
+  background-color: #fff;
+
+  margin-bottom: 3rem;
 `;
 
 const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin: 3rem 0;
 `;
 
 const HeaderTitle = styled.span`
@@ -46,7 +51,8 @@ const HeaderBody = styled.span`
 
 const Body = styled.img`
   width: 100%;
-  height: auto;
+  /* height: auto; */
   object-fit: cover;
-  border-radius: 8px;
+
+  margin-left: 15px;
 `;

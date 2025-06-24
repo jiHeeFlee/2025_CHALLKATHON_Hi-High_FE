@@ -11,25 +11,26 @@ import LineBar from '../status/LineBar';
 import AuthButton from '../button/AuthButton';
 
 export default function Login() {
-  
   const googleURL = `https://hihigh.lion.it.kr/oauth2/authorization/google`;
 
   const handleGoogleLogin = () => {
-    window.location.href = googleURL ;
+    window.location.href = googleURL;
   };
 
   return (
     <Container>
-      <LineBar total={3} current={3} />
       <Header>
         <HeaderTitle>{LANDING_CONTENTS[3].title}</HeaderTitle>
         <HeaderBody>{LANDING_CONTENTS[3].body}</HeaderBody>
       </Header>
 
       <ImageContainer>
-      <Body src="/assets/images/RANDING.png" alt="랜딩 이미지" />
+        <Body src="/assets/images/RANDING.png" alt="랜딩 이미지" />
 
-      <LoginButton content="Google 계정으로 계속" onClick={handleGoogleLogin} />
+        <LoginButton
+          content="Google 계정으로 계속"
+          onClick={handleGoogleLogin}
+        />
       </ImageContainer>
     </Container>
   );
@@ -38,12 +39,12 @@ export default function Login() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
 
-  padding-top: 2rem;
   gap: 2.8rem;
 
-  min-height: 100vh;
+  height: 100%;
   background-color: #ffffff;
 `;
 
@@ -78,7 +79,9 @@ const Body = styled.img`
   height: auto;
   object-fit: cover;
   border-radius: 8px;
-  margin-top: -2.5rem; 
+
+  /* position: absolute;
+  bottom: 0px; */
 `;
 
 const LoginButton = styled(AuthButton)`
@@ -88,7 +91,6 @@ const LoginButton = styled(AuthButton)`
   position: absolute;
   bottom: 5rem;
   border: none;
-
 
   &:hover {
     background-color: var(--primary-color-600);
