@@ -2,6 +2,8 @@
 
 import React from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/navigation';
+
 import NavigationBar from '../home/components/NavigationBar';
 import BackIcon from '@/assets/BackIcon.svg';
 import GlobalButton from '@/components/button/GlobalButton';
@@ -11,6 +13,8 @@ import MenuSection from '../../components/mypage/MenuSection';
 import EditBottomSheet from '../../components/mypage/EditBottomSheet';
 
 export default function Mypage() {
+  const router = useRouter();
+
   const [profileUpdate, setProfileUpdate] = React.useState(false);
   const [nickname, setNickname] = React.useState('유저 닉네임');
   const [tempNickname, setTempNickname] = React.useState('유저 닉네임');
@@ -118,11 +122,10 @@ export default function Mypage() {
 
   return (
     <Container>
-      {' '}
+      {/* {' '} */}
       <Title>
-        <BackIcon className="svg" />
+        <StyledBackIcon onClick={() => router.back()} />
         마이페이지
-        <div style={{ width: '28px', height: '28px' }} />
       </Title>
       <ProfileSection
         nickname={nickname}
@@ -133,10 +136,15 @@ export default function Mypage() {
         onNicknameChange={handleNicknameChange}
       />
       <MenuSection onMenuClick={handleMenuClick} />
-      <GlobalButton style={{ marginTop: '172px' }} onClick={handleLogout}>
-        로그아웃
-      </GlobalButton>
-      <DeleteAccount>계정 삭제하기</DeleteAccount>
+      <ButtonWrapper>
+        <GlobalButton
+          // style={{ marginTop: '172px' }}
+          onClick={handleLogout}
+        >
+          로그아웃
+        </GlobalButton>
+        <DeleteAccount>계정 삭제하기</DeleteAccount>
+      </ButtonWrapper>
       <EditBottomSheet
         isOpen={bottomSheetOpen}
         currentMenu={currentMenu}
@@ -157,15 +165,23 @@ export default function Mypage() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: flex-end; */
+  justify-content: space-between;
   align-items: center;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
   background-color: #fff;
+
+  position: relative;
 `;
 
 const Title = styled.div`
   display: flex;
-  width: 319px;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: center;
   align-items: center;
   color: var(--neutral-color-700);
   text-align: center;
@@ -173,10 +189,37 @@ const Title = styled.div`
   font-weight: 700;
   line-height: 20px;
   margin-top: 24px;
+
+  position: relative;
   .svg {
     width: 28px;
     height: 28px;
   }
+`;
+
+const StyledBackIcon = styled(BackIcon)`
+  position: absolute;
+  left: 2rem;
+  color: var(--neutral-color-300);
+
+  :hover {
+    color: var(--neutral-color-500);
+    transition: all 0.2s ease-in-out;
+  }
+
+  :active {
+    color: var(--primary-color-500);
+    transition: all 0.2s ease-in-out;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  outline: none;
 `;
 
 const DeleteAccount = styled.div`
