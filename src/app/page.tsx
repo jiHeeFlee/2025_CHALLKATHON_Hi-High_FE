@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getCookie } from '@/auth/cookie';
 
 import IntroService from '@/components/landing/IntroService';
 import IntroTeam from '@/components/landing/IntroTeam';
@@ -11,8 +13,17 @@ import LandingButton from '@/components/button/LandingButton';
 import LineBar from '@/components/status/LineBar';
 
 export default function Home() {
+  const router = useRouter();
+
   const [step, setStep] = useState<'service' | 'team' | 'login'>('service');
   const [current, setCurrent] = useState<number>(1);
+
+  useEffect(() => {
+    const token = getCookie('accessToken');
+    if (token) {
+      router.push('/home');
+    }
+  }, [router]);
 
   const handleSkip = () => {
     setStep('login');

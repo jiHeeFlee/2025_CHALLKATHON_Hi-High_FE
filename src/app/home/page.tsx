@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <Container>
       <ScrollWrapper>
-        <Header user_name={moke.user_name} date={moke.date} />
+        <StyledHeader user_name={moke.user_name} date={moke.date} />
         <ContentsArea>
           <KeywordList
             keyword={mockKeywordList.keyword}
@@ -94,6 +94,7 @@ const Container = styled.div`
 
   background-color: #fff;
 
+  width: 100%;
   height: 100%;
 
   overflow: hidden;
@@ -126,4 +127,10 @@ const StyledNavigationBar = styled(NavigationBar)`
   bottom: 0;
 
   z-index: 10;
+`;
+
+const StyledHeader = styled(Header)`
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
 `;

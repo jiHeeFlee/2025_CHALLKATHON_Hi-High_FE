@@ -3,6 +3,8 @@
 import styled from '@emotion/styled';
 
 const GlobalBtn = styled.button`
+  all: unset;
+
   display: flex;
   width: 319px;
   height: 56px;
@@ -20,6 +22,11 @@ const GlobalBtn = styled.button`
   cursor: pointer;
   :hover {
     background: var(--primary-color-500);
+    transition: all 0.2s ease-in-out;
+  }
+  :hover {
+    background: var(--primary-color-700);
+    transition: all 0.2s ease-in-out;
   }
 `;
 

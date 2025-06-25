@@ -3,20 +3,44 @@
 import styled from '@emotion/styled';
 import { useState, useRef, useEffect } from 'react';
 
+import instance from '@/auth/axios';
+
 import Header from './components/Header';
 import ChatInput from '@/components/input/ChatInput';
 
 import ClientBubble from './components/ClientBubble';
 import GptBubble from './components/GptBubble';
 
+// POST
+interface SendMessageResponse {
+  id: number;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+}
+interface ChatHistoryResponse {
+  id: number;
+  username: string;
+  createdAt: string;
+  updatedAt: string;
+  messages: {
+    id: number;
+    role: 'user' | 'assistant';
+    content: string;
+    timestamp: string;
+  }[];
+}
+
+interface Message {
+  isClient: boolean; // rool === 'user'
+  text: string; // content
+}
+
 export default function Chat() {
   const chatContentRef = useRef<HTMLDivElement>(null);
 
-  const [clientMessages, setClientMessages] = useState<string[]>([
-    '테스트 01',
-    '테스트 02-긴버전'
-  ]);
-  const [gptMessages] = useState<string[]>(['## 이게 될까?', '# 이게 되네']);
+  // 모든 메세지 이 배열 하나로 관리
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const scrollToBottom = () => {
     if (chatContentRef.current) {
@@ -24,13 +48,49 @@ export default function Chat() {
     }
   };
 
+  // 최초 렌더링 시 과거 메세지 가져오기
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const res = await instance.get<ChatHistoryResponse>(`/api/chat`);
+        const history: Message[] = res.data.messages.map(msg => ({
+          isClient: msg.role === 'user',
+          text: msg.content
+        }));
+        setMessages(history);
+      } catch (error) {
+        console.log('채팅 히스토리 로드 실패 : ', error);
+      }
+    };
+    fetchHistory();
+  }, []);
+
   useEffect(() => {
     scrollToBottom();
-  }, [clientMessages, gptMessages]);
+  }, [messages]);
 
-  const handleSendMessage = (value: string | null) => {
+  const handleSendMessage = async (value: string | null) => {
     if (!value) return;
-    setClientMessages(prev => [...prev, value]);
+
+    // 화면 바로 출력
+    setMessages(prev => [...prev, { isClient: true, text: value }]);
+
+    try {
+      const response = await instance.post<SendMessageResponse>(
+        `/api/chat/messages`,
+        { message: value }
+      );
+
+      const gptReply = response.data.content;
+
+      setMessages(prev => [...prev, { isClient: false, text: gptReply }]);
+      console.log('[POST] 채팅 전송:', value);
+      console.log('[GPT 응답] : ', gptReply);
+    } catch (error) {
+      console.log('[error] 채팅 내용 : ', value);
+      console.log('[error] 채팅 타입 : ', typeof value);
+      console.error('메세지 전송 실패 : ', error);
+    }
   };
 
   return (
@@ -38,12 +98,13 @@ export default function Chat() {
       <Header state_message="테스트 중" />
       <ChattingArea>
         <ChatContentArea ref={chatContentRef}>
-          {gptMessages.map((item, index) => (
-            <GptBubble key={index} answer_string={item} />
-          ))}
-          {clientMessages.map((item, index) => (
-            <ClientBubble key={index} ask_string={item} />
-          ))}
+          {messages.map((msg, idx) =>
+            msg.isClient ? (
+              <ClientBubble key={idx} ask_string={msg.text} />
+            ) : (
+              <GptBubble key={idx} answer_string={msg.text} />
+            )
+          )}
         </ChatContentArea>
         <ChatInput
           onClick={handleSendMessage}
@@ -57,7 +118,9 @@ export default function Chat() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+
+  width: 100%;
+  height: 100%;
 
   overflow-y: hidden;
 `;

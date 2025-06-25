@@ -41,6 +41,8 @@ const Container = styled.div`
 `;
 
 const SkipButton = styled.span`
+  cursor: pointer;
+
   ${Button4}
   color: var(--neutral-color-300);
 

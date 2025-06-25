@@ -54,7 +54,8 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  margin-top: 24px;
+  /* margin-top: 24px; */
+  height: max-content;
 `;
 
 const ProfileImage = styled.img`
