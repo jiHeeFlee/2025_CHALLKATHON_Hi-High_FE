@@ -26,6 +26,11 @@ export default function RootLayout({
         {/* iOS 홈스크린 아이콘 */}
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css"
+        />
       </head>
       <body style={{ backgroundColor: '#f5f5f5' }}>
         <MobileContainer>{children}</MobileContainer>
