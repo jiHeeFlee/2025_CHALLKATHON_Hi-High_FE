@@ -24,7 +24,7 @@ export default function Card({
   return (
     <CardContainer
       onClick={() => {
-        const detailUrl = `/home/${key_word}/${id}`;
+        const detailUrl = `/home/${encodeURIComponent(key_word)}/detail/${id}`;
         console.log('홈페이지 카드 클릭:');
         console.log('- key_word:', key_word);
         console.log('- id:', id, '(타입:', typeof id, ')');
@@ -45,7 +45,9 @@ const CardContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  gap: 4px;
 
+  cursor: pointer;
   width: 245px;
   height: max-content;
 

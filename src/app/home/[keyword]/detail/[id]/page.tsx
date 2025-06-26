@@ -100,10 +100,9 @@ export default function Detail() {
   }
   return (
     <Container>
-      {' '}
-      <DetailHeader>
+      {' '}      <DetailHeader>
         <StyledBackIcon onClick={() => router.back()} />
-        <HeaderTitle>{article.keyword}</HeaderTitle>
+        <HeaderTitle>{decodeURIComponent(keyword as string)}</HeaderTitle>
       </DetailHeader>
       <ArticleImage
         src={article.thumbnailUrl || 'https://via.placeholder.com/400x200'}

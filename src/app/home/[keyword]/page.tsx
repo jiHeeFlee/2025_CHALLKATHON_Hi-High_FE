@@ -160,6 +160,8 @@ const HeaderTitle = styled.h1`
   ${Title4}
   color: var(--neutral-color-800);
   margin: 0;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const Keyword = styled.span`
