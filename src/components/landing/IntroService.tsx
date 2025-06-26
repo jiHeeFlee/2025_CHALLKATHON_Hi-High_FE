@@ -23,10 +23,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   /* justify-content: center; */
+  min-height: 337px;
 
   gap: 3rem;
   height: 100%;
-  background-color: #fff;
+  /* background-color: #bb5252; */
 
   margin-bottom: 3rem;
 `;
@@ -36,7 +37,7 @@ const Header = styled.div`
   flex-direction: column;
   align-items: center;
 
-  margin: 3rem 0;
+  /* margin-bottom: 3rem; */
 `;
 
 const HeaderTitle = styled.span`

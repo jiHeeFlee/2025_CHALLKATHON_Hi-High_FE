@@ -20,22 +20,24 @@ export default function IntroTeam() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
+  justify-content: space-between;
   align-items: center;
 
   height: 100%;
+  min-height: 414px;
 
   /* padding-top: 1rem; */
 
   gap: 3rem;
-  background-color: #fff;
+  /* background-color: #b25858; */
 `;
 
 const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  width: 95%;
 
   white-space: pre-line;
   padding: 0 32px;
@@ -58,5 +60,5 @@ const Body = styled.img`
   border-radius: 8px;
 
   margin-left: 10px;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 `;

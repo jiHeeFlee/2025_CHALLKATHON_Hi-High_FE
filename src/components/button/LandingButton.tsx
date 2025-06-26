@@ -38,6 +38,9 @@ const Container = styled.div`
   padding: 0 32px;
 
   margin-bottom: 3rem;
+
+  /* position: relative;
+  bottom: 0; */
 `;
 
 const SkipButton = styled.span`

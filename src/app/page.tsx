@@ -60,15 +60,18 @@ export default function Home() {
 
 const Container = styled.div`
   display: flex;
+  /* flex: 1; */
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: space-between;
   align-items: center;
 
   width: 100%;
-  height: 100%;
-  max-height: 812px;
+  /* height: 100%; */
+  /* max-height: 812px; */
+  min-height: 812px;
 
-  background-color: #fff;
+  position: relative;
 
   /* padding: 3rem 0; */
 `;
