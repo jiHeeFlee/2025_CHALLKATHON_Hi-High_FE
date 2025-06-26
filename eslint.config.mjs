@@ -1,26 +1,30 @@
 import js from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import parser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 import react from 'eslint-plugin-react';
-import next from '@next/eslint-plugin-next';
+import nextPlugin from '@next/eslint-plugin-next';
 import globals from 'globals';
 
 /** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    ignores: ['node_modules'],
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
+      parser,
       parserOptions: {
-        ecmaFeatures: { jsx: true }
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: { jsx: true },
+        project: './tsconfig.json'
       },
       globals: globals.browser
     },
     plugins: {
       js,
-      tseslint,
+      tsPlugin,
       react,
-      next
+      nextPlugin
     },
     rules: {
       'react/react-in-jsx-scope': 'off',
@@ -30,7 +34,7 @@ export default [
     }
   },
   js.configs.recommended,
-  tseslint.configs['recommended'], // 배열 문제 해결
+  tsPlugin.configs.recommended,
   react.configs.recommended,
-  next.configs.recommended
+  nextPlugin.configs.recommended
 ];

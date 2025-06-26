@@ -22,10 +22,7 @@ export default function ProfileSection({
 }: Props) {
   return (
     <ProfileContainer>
-      <ProfileImage
-        src="https://avatars.githubusercontent.com/u/12345678?v=4"
-        alt="프로필 이미지"
-      />
+      <ProfileImage src="/icons/icon-192x192.png" alt="프로필 이미지" />
       <ProfileNameContainer>
         {profileUpdate ? (
           <NicknameInput

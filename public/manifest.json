@@ -1,7 +1,7 @@
 {
-  "name": "hai",
+  "name": "hai | 커리어를 높이는 첫 인사",
   "short_name": "hai",
-  "description": "Hi-High Next.js PWA Demo",
+  "description": "커리어를 높이는 첫 인사, hai",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
