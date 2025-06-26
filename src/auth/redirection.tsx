@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { setCookie } from '@/auth/cookie';
+import Loading from '@/app/googleLogin/Loading/page';
 
 export default function GoogleLoginRedirect() {
   const router = useRouter();
@@ -21,5 +22,5 @@ export default function GoogleLoginRedirect() {
     }
   }, [accessToken, refreshToken, router]);
 
-  return <div>로그인 중입니다...</div>;
+  return <Loading />;
 }
