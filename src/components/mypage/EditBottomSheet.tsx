@@ -90,7 +90,7 @@ const BottomSheet = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 390px;
+  width: 375px;
   height: 526px;
   border-radius: 20px 20px 0px 0px;
   background: #fff;
