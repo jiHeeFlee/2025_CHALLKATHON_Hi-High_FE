@@ -129,7 +129,8 @@ const Container = styled.div`
   background-color: #fff;
   width: 100%;
   /* min-height: 100vh; */
-  min-height: inherit;
+  /* min-height: inherit; */
+  max-height: 812px;
 
   overflow-y: scroll;
   scrollbar-width: none; // firefox : 스크롤바 숨김

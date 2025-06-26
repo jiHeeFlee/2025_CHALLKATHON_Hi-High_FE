@@ -128,7 +128,8 @@ export default function Detail() {
 const Container = styled.div`
   padding: 40px 16px 24px 16px;
   background-color: #fff;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  max-height: 812px;
 
   overflow-y: scroll;
   overflow-y: scroll;
