@@ -21,9 +21,17 @@ export default function Card({
   id
 }: CardProps) {
   const router = useRouter();
-
   return (
-    <CardContainer onClick={() => router.push(`/home/${key_word}/${id}`)}>
+    <CardContainer
+      onClick={() => {
+        const detailUrl = `/home/${key_word}/${id}`;
+        console.log('홈페이지 카드 클릭:');
+        console.log('- key_word:', key_word);
+        console.log('- id:', id, '(타입:', typeof id, ')');
+        console.log('- 이동할 URL:', detailUrl);
+        router.push(detailUrl);
+      }}
+    >
       <CardImage thumbnail_url={thumbnail_url} />
       <CardSource>{source}</CardSource>
       <CardTitle>{title}</CardTitle>
@@ -54,7 +62,7 @@ const CardContainer = styled.div`
     transition: all 0.2s ease-in-out;
   }
 
-  :first-child {
+  :first-of-type {
     margin-left: 25px;
   }
 `;

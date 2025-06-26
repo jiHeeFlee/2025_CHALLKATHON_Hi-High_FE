@@ -9,9 +9,14 @@ interface SubCardProps {
   onClick?: () => void;
 }
 
-export default function SubCard({ thumbnail_url, source, title }: SubCardProps) {
+export default function SubCard({
+  thumbnail_url,
+  source,
+  title,
+  onClick
+}: SubCardProps) {
   return (
-    <Card>
+    <Card onClick={onClick}>
       <MiniThumbnail src={thumbnail_url} alt="썸네일" />
       <MiniSource>{source}</MiniSource>
       <MiniTitle>{title}</MiniTitle>
@@ -22,12 +27,18 @@ export default function SubCard({ thumbnail_url, source, title }: SubCardProps) 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
 `;
 
 const MiniThumbnail = styled.img`
   width: 100%;
-  height: 100px;
-  border-radius: 20px;
+  height: 120px;
+  border-radius: 12px;
   object-fit: cover;
   margin-bottom: 8px;
 `;
@@ -38,8 +49,14 @@ const MiniSource = styled.div`
 `;
 
 const MiniTitle = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--neutral-color-800);
   line-height: 1.4;
+  margin-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

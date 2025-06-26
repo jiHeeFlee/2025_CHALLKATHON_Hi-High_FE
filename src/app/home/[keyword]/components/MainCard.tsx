@@ -9,7 +9,12 @@ interface MainCardProps {
   onClick?: () => void;
 }
 
-export default function MainCard({ thumbnail_url, source, title, onClick }: MainCardProps) {
+export default function MainCard({
+  thumbnail_url,
+  source,
+  title,
+  onClick
+}: MainCardProps) {
   return (
     <Container
       onClick={() => {
@@ -24,10 +29,11 @@ export default function MainCard({ thumbnail_url, source, title, onClick }: Main
   );
 }
 
-
 const Container = styled.div`
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   cursor: pointer;
+  max-width: 100%;
+  overflow: hidden;
 `;
 
 const Source = styled.div`
@@ -45,7 +51,8 @@ const Title = styled.h2`
 
 const Thumbnail = styled.img`
   width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 20px;
   object-fit: cover;
+  display: block;
 `;

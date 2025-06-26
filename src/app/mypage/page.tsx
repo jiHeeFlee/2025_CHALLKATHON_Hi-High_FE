@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/navigation';
+import { Cookies } from 'react-cookie';
 
 import NavigationBar from '../home/components/NavigationBar';
 import BackIcon from '@/assets/BackIcon.svg';
@@ -25,7 +26,7 @@ export default function Mypage() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [interests, setInterests] = React.useState<string[]>([]);
   const [goals, setGoals] = React.useState<string[]>([]);
-  const [jobTypes, setJobTypes] = React.useState<string[]>([]); // 사용자 정보 불러오기
+  const [jobTypes, setJobTypes] = React.useState<string[]>([]);
 
   React.useEffect(() => {
     const fetchUserInfo = async () => {
@@ -61,25 +62,37 @@ export default function Mypage() {
 
     fetchUserInfo();
   }, []);
-
   const handleProfileUpdate = () => {
     setProfileUpdate(!profileUpdate);
     setTempNickname(nickname);
-    console.log('프로필 수정 클릭됨');
   };
-
   const handleProfileSave = () => {
     setNickname(tempNickname);
     setProfileUpdate(false);
-    console.log('프로필 저장됨:', tempNickname);
   };
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTempNickname(e.target.value);
   };
   const handleLogout = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');
-      window.location.href = '/start';
+    try {
+      if (typeof window !== 'undefined') {
+        // localStorage에서 토큰 제거
+        localStorage.removeItem('token');
+
+        // cookies에서도 토큰 제거 (혹시 있다면)
+        const cookies = new Cookies();
+        cookies.remove('accessToken', { path: '/' });
+        cookies.remove('refreshToken', { path: '/' });
+
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+      // 에러가 발생해도 일단 토큰은 제거하고 이동
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        router.push('/');
+      }
     }
   };
   const handleDeleteAccount = async () => {
@@ -96,39 +109,18 @@ export default function Mypage() {
       // 토큰 제거
       if (typeof window !== 'undefined') {
         localStorage.removeItem('token');
+
+        // cookies에서도 토큰 제거
+        const cookies = new Cookies();
+        cookies.remove('accessToken', { path: '/' });
+        cookies.remove('refreshToken', { path: '/' });
+
         alert('계정이 삭제되었습니다.');
-        window.location.href = '/';
+        router.push('/');
       }
     } catch (error) {
       console.error('계정 삭제 실패:', error);
       alert('계정 삭제에 실패했습니다. 다시 시도해주세요.');
-    }
-  };
-  const handleDeleteUserData = async (type: string) => {
-    if (!window.confirm(`${type}를 모두 삭제하시겠습니까?`)) {
-      return;
-    }
-
-    try {
-      switch (type) {
-        case '관심사':
-          await instance.delete('/api/auth/interests');
-          setInterests([]);
-          break;
-        case '목표':
-          await instance.delete('/api/auth/goals');
-          setGoals([]);
-          break;
-        case '희망직종':
-          await instance.delete('/api/auth/desired-occupation');
-          setJobTypes([]);
-          break;
-      }
-
-      alert(`${type}가 삭제되었습니다.`);
-    } catch (error) {
-      console.error(`${type} 삭제 실패:`, error);
-      alert(`${type} 삭제에 실패했습니다. 다시 시도해주세요.`);
     }
   };
 
@@ -160,11 +152,9 @@ export default function Mypage() {
     setSearchValue('');
   };
   const handleOptionRemove = async (option: string) => {
-    // UI에서 먼저 제거
     const updatedOptions = selectedOptions.filter(item => item !== option);
     setSelectedOptions(updatedOptions);
 
-    // 해당 카테고리의 state도 업데이트
     switch (currentMenu) {
       case '관심사':
         setInterests(updatedOptions);
@@ -175,7 +165,8 @@ export default function Mypage() {
       case '희망직종':
         setJobTypes(updatedOptions);
         break;
-    } // API 호출로 개별 옵션 삭제
+    }
+
     try {
       const joinedOptions = updatedOptions.join(', ');
 
@@ -237,7 +228,6 @@ export default function Mypage() {
           });
           break;
       }
-
       console.log(`${currentMenu} 업데이트 성공:`, selectedOptions);
       handleBottomSheetClose();
     } catch (error) {
@@ -247,10 +237,8 @@ export default function Mypage() {
       setIsLoading(false);
     }
   };
-
   return (
     <Container>
-      {/* {' '} */}
       <Title>
         <StyledBackIcon onClick={() => router.back()} />
         마이페이지
@@ -262,16 +250,13 @@ export default function Mypage() {
         onProfileUpdate={handleProfileUpdate}
         onProfileSave={handleProfileSave}
         onNicknameChange={handleNicknameChange}
-      />{' '}
+      />
       <MenuSection onMenuClick={handleMenuClick} />
       <ButtonWrapper>
-        <GlobalButton
-          // style={{ marginTop: '172px' }}
-          onClick={handleLogout}
-        >
-          로그아웃
-        </GlobalButton>
-        <DeleteAccount>계정 삭제하기</DeleteAccount>
+        <GlobalButton onClick={handleLogout}>로그아웃</GlobalButton>
+        <DeleteAccount onClick={handleDeleteAccount}>
+          계정 삭제하기
+        </DeleteAccount>
       </ButtonWrapper>
       <EditBottomSheet
         isOpen={bottomSheetOpen}
@@ -293,13 +278,12 @@ export default function Mypage() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-end; */
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  height: 100vh;
+  overflow-y: auto;
 
   background-color: #fff;
 

@@ -2,77 +2,121 @@
 
 import styled from '@emotion/styled';
 import { useParams } from 'next/navigation';
-import { Title4 } from '@/app/typography';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { Title4 } from '@/app/typography';
+import instance from '@/auth/axios';
+import BackIcon from '@/assets/BackIcon.svg';
 import MainCard from '@/app/home/[keyword]/components/MainCard';
 import SubCard from '@/app/home/[keyword]/components/SubCard';
-
-const mockKeywordList = {
-  keyword: '오늘의테크뉴스',
-  cards: [
-    {
-      id: '1',
-      thumbnail_url: 'https://images.unsplash.com/photo-1581093588401-22d84d84f5e3?auto=format&fit=crop&w=400&q=80',
-      source: 'BBC',
-      title: 'AI가 바꾼 뉴스 제작 현장',
-    },
-    {
-      id: '2',
-      thumbnail_url: 'https://images.unsplash.com/photo-1610484826917-29f643f80cd3?auto=format&fit=crop&w=400&q=80',
-      source: 'CNN',
-      title: 'ChatGPT의 진짜 가능성과 한계',
-    },
-    {
-      id: '3',
-      thumbnail_url: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=400&q=80',
-      source: 'The Verge',
-      title: '메타버스, 트렌드인가 사라질까?',
-    },
-    {
-      id: '4',
-      thumbnail_url: 'https://images.unsplash.com/photo-1603791452906-c5d7c9c09774?auto=format&fit=crop&w=400&q=80',
-      source: 'Wired',
-      title: '스마트폰 혁신의 끝은 어디인가',
-    },
-    {
-      id: '5',
-      thumbnail_url: 'https://images.unsplash.com/photo-1629442828234-3530f927fbf7?auto=format&fit=crop&w=400&q=80',
-      source: 'TechCrunch',
-      title: '스타트업 투자, 2024 흐름은?',
-    },
-  ],
-};
 
 export default function KeywordDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const keyword = typeof params.keyword === 'string' ? decodeURIComponent(params.keyword) : '';
+  const keyword =
+    typeof params.keyword === 'string'
+      ? decodeURIComponent(params.keyword)
+      : '';
 
-  const selected = mockKeywordList.keyword === keyword ? mockKeywordList : null;
-  if (!selected) return <Empty>데이터 없음</Empty>;
+  const [newsData, setNewsData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const featuredCard = selected.cards[2];
-  const otherCards = selected.cards.filter((_, index) => index !== 2);
+  useEffect(() => {
+    const fetchKeywordNews = async () => {
+      try {
+        const response = await instance.get('/api/main');
+        console.log('=== 키워드 페이지 데이터 ===');
+        console.log('keyword:', keyword);
+        console.log('response.data:', response.data);
+        console.log('========================');
 
+        setNewsData(response.data);
+      } catch (error: any) {
+        console.error('키워드 뉴스 데이터 가져오기 실패:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchKeywordNews();
+  }, [keyword]);
+
+  if (loading) {
+    return (
+      <Container>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '200px',
+            fontSize: '16px',
+            color: '#666'
+          }}
+        >
+          뉴스를 불러오는 중...
+        </div>
+      </Container>
+    );
+  }
+
+  // 해당 키워드의 뉴스 데이터 찾기
+  const keywordNews = newsData?.newsByKeyword?.[keyword];
+
+  if (!keywordNews || keywordNews.length === 0) {
+    return (
+      <Container>
+        <Empty>"{keyword}" 관련 뉴스가 없습니다.</Empty>
+      </Container>
+    );
+  }
+
+  // 첫 번째 뉴스를 메인 카드로, 나머지를 서브 카드로 사용
+  const featuredCard = keywordNews[0];
+  const otherCards = keywordNews.slice(1);
   return (
     <Container>
+      <Header>
+        <StyledBackIcon onClick={() => router.back()} />
+        <HeaderTitle>{keyword}</HeaderTitle>
+      </Header>
+
       <MainCard
-        thumbnail_url={featuredCard.thumbnail_url}
+        thumbnail_url={
+          featuredCard.thumbnailUrl || 'https://via.placeholder.com/400x200'
+        }
         source={featuredCard.source}
         title={featuredCard.title}
-        onClick={() => 
-          router.push(`/home/${encodeURIComponent(keyword)}/detail/${featuredCard.id}`)}
+        onClick={() => {
+          const detailUrl = `/home/${encodeURIComponent(keyword)}/detail/${featuredCard.id}`;
+          console.log('메인카드 클릭 - 이동할 URL:', detailUrl);
+          console.log(
+            'featuredCard.id:',
+            featuredCard.id,
+            '(타입:',
+            typeof featuredCard.id,
+            ')'
+          );
+          router.push(detailUrl);
+        }}
       />
 
-
-      <Keyword>{selected.keyword}</Keyword>
       <SubCardGrid>
-        {otherCards.map((card, index) => (
+        {' '}
+        {otherCards.map((card: any) => (
           <SubCard
-            key={index}
-            thumbnail_url={card.thumbnail_url}
+            key={card.id}
+            thumbnail_url={
+              card.thumbnailUrl || 'https://via.placeholder.com/400x200'
+            }
             source={card.source}
             title={card.title}
+            onClick={() => {
+              const detailUrl = `/home/${encodeURIComponent(keyword)}/detail/${card.id}`;
+              console.log('서브카드 클릭 - 이동할 URL:', detailUrl);
+              console.log('card.id:', card.id, '(타입:', typeof card.id, ')');
+              router.push(detailUrl);
+            }}
           />
         ))}
       </SubCardGrid>
@@ -81,14 +125,46 @@ export default function KeywordDetailPage() {
 }
 
 const Container = styled.div`
-  padding: 28px 28px;
+  padding: 40px 28px 28px 28px;
   background-color: #fff;
+  min-height: 100vh;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 24px;
+  padding: 12px 0;
+`;
+
+const StyledBackIcon = styled(BackIcon)`
+  position: absolute;
+  left: 0;
+  color: var(--neutral-color-300);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--neutral-color-500);
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:active {
+    color: var(--primary-color-500);
+    transition: all 0.2s ease-in-out;
+  }
+`;
+
+const HeaderTitle = styled.h1`
+  ${Title4}
+  color: var(--neutral-color-800);
+  margin: 0;
 `;
 
 const Keyword = styled.span`
   ${Title4}
   color: var(--neutral-color-800);
-
 `;
 
 const SubCardGrid = styled.div`

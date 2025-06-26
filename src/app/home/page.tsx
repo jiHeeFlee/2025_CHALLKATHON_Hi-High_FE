@@ -2,11 +2,10 @@
 
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
+import instance from '@/auth/axios';
 
 import Header from './components/Header';
 import KeywordList from './components/KeywordList';
-import Keyword from './[keyword]/page';
-import { mock } from 'node:test';
 import NavigationBar from './components/NavigationBar';
 
 const moke = {
@@ -66,19 +65,105 @@ const mockKeywordList = {
 };
 
 export default function Home() {
+  const [newsData, setNewsData] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [userResponse, newsResponse] = await Promise.all([
+          instance.get('/api/auth/user-info'),
+          instance.get('/api/main')
+        ]);        console.log('=== 사용자 정보 ===');
+        console.log('user-info 전체 응답:', userResponse);
+        console.log('user-info 데이터:', userResponse.data);
+        console.log('user-info name 필드:', userResponse.data?.name);
+        console.log('=== /api/main 응답 데이터 ===');
+        console.log('main data:', newsResponse.data);
+        console.log('========================');
+
+        setUserInfo(userResponse.data);
+        setNewsData(newsResponse.data);
+      } catch (error: any) {
+        console.error('데이터 가져오기 실패:', error);
+        console.log('에러 응답:', error.response?.data);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <Container>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+            fontSize: '16px',
+            color: '#666'
+          }}
+        >
+          뉴스를 불러오는 중...
+        </div>
+      </Container>
+    );  }
+  
+  console.log('🔍 사용자 이름 설정');
+  console.log('userInfo 전체:', userInfo);
+  console.log('userInfo?.name:', userInfo?.name);
+  console.log('moke.user_name:', moke.user_name);
+  
+  const userName = userInfo?.name || moke.user_name;
+  console.log('최종 userName:', userName);
+  const currentDate =
+    new Date().toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit'
+    }) + ' 기준';
+
   return (
     <Container>
       <ScrollWrapper>
-        <StyledHeader user_name={moke.user_name} date={moke.date} />
+        <StyledHeader user_name={userName} date={currentDate} />
         <ContentsArea>
-          <KeywordList
-            keyword={mockKeywordList.keyword}
-            cards={mockKeywordList.cards}
-          />
-          <KeywordList
-            keyword={mockKeywordList.keyword}
-            cards={mockKeywordList.cards}
-          />
+          {newsData?.newsByKeyword ? (
+            Object.entries(newsData.newsByKeyword).map(
+              ([keyword, cards]: [string, any]) => (
+                <KeywordList
+                  key={keyword}
+                  keyword={keyword}
+                  cards={cards.map((news: any) => ({
+                    id: news.id,
+                    thumbnail_url:
+                      news.thumbnailUrl ||
+                      'https://via.placeholder.com/400x200',
+                    source: news.source,
+                    title: news.title,
+                    key_word: keyword
+                  }))}
+                />
+              )
+            )
+          ) : (
+            <>
+              <KeywordList
+                keyword={mockKeywordList.keyword}
+                cards={mockKeywordList.cards}
+              />
+              <KeywordList
+                keyword={mockKeywordList.keyword}
+                cards={mockKeywordList.cards}
+              />
+            </>
+          )}
         </ContentsArea>
       </ScrollWrapper>
       <StyledNavigationBar />
@@ -96,7 +181,7 @@ const Container = styled.div`
 
   width: 100%;
   height: 100%;
-
+  min-height: 100vh;
   overflow: hidden;
 `;
 
