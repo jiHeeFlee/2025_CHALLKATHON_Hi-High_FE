@@ -95,7 +95,7 @@ export default function Chat() {
 
   return (
     <Container>
-      <Header state_message="테스트 중" />
+      <Header state_message="안녕하세요!" />
       <ChattingArea>
         <ChatContentArea ref={chatContentRef}>
           {messages.map((msg, idx) =>
