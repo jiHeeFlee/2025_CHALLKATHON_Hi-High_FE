@@ -36,11 +36,11 @@
 
 ---
 
-## 🔗 주요 링크 - 아직 연결 안됨
+## 🔗 주요 링크 
 
-- 🔥 [서비스 바로가기](https://hi-high.vercel.app)
-- 🛠 [프론트엔드 레포](https://github.com/your-org/hi-high-fe)
-- ⚙️ [백엔드 레포](https://github.com/your-org/hi-high-be)
+- 🔥 [서비스 바로가기](https://hai-jiheeflees-projects.vercel.app/)
+- 🛠 [프론트엔드 레포](https://github.com/CHALLKATHON-Official/2025_CHALLKATHON_Hi-High_FE.git)
+- ⚙️ [백엔드 레포](https://github.com/CHALLKATHON-Official/2025_CHALLKATHON_Hi-High_BE.git)
 - 📄 [기획 문서 Notion](https://notion.so/hi-high)
 
 ---
