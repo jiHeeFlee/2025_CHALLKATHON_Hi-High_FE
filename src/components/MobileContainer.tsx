@@ -19,11 +19,13 @@ const Wrapper = styled.div`
 
   position: relative;
   width: 390px; // iphone 14 너비
-  height: 812px;
+  min-height: 812px;
+  max-height: 100vh;
 
   margin: 0 auto;
   background-color: #f5f5f5;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
   overflow-x: hidden;
+  overflow-y: auto;
 `;
