@@ -20,7 +20,7 @@
 ## 🖼️ 서비스 미리보기
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/40e4f83e-d28e-4b23-bdfb-e1555dad2378" alt="TEAM_INTRO" width="1200"/>
+  <img src="https://github.com/user-attachments/assets/4d490f47-b388-43b1-a963-46c643af6232" alt="TEAM_INTRO" width="1200"/>
 </p>
 
 ---
@@ -36,12 +36,78 @@
 
 ---
 
-## 🔗 주요 링크 
+## Front-End 프로젝트 구조
 
-- 🔥 [서비스 바로가기](https://hai-jiheeflees-projects.vercel.app/)
-- 🛠 [프론트엔드 레포](https://github.com/CHALLKATHON-Official/2025_CHALLKATHON_Hi-High_FE.git)
-- ⚙️ [백엔드 레포](https://github.com/CHALLKATHON-Official/2025_CHALLKATHON_Hi-High_BE.git)
-- 📄 [기획 문서 Notion](https://notion.so/hi-high)
+```text
+2025_CHALLKATHON_Hi-High_FE
+├── .github/
+├── .next/
+├── node_modules/
+├── public/
+│   ├── assets/
+│   ├── icons/
+│   ├── manifest.json
+│   ├── sw.js
+│   └── workbox-e43f5367.js
+├── src/
+│   ├── api/
+│   ├── app/
+│   ├── assets/
+│   ├── auth/
+│   ├── components/
+│   ├── constants/
+│   └── types/
+├── .gitignore
+├── .prettierrc
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next-config.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+---
+
+## Back-End 프로젝트 구조
+
+```text
+hi-high
+├── .github/
+├── .gradle/
+├── .idea/
+├── bin/
+├── build/
+├── gradle/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── challkahthon.backend.hihigh/
+│   │   │       ├── config/
+│   │   │       ├── controller/
+│   │   │       ├── domain/
+│   │   │       ├── dto/
+│   │   │       ├── jwt/
+│   │   │       ├── repository/
+│   │   │       ├── service/
+│   │   │       ├── utils/
+│   │   │       └── HiHighApplication.java
+│   │   └── resources/
+│   │       └── application.yml
+│   └── test/
+│       ├── java/
+│       │   └── challkahthon.backend.hihigh/
+│       │       └── HiHighApplicationTests.java
+├── .gitattributes
+├── .gitignore
+├── build.gradle
+├── Dockerfile
+├── global-commit-template.txt
+├── gradlew
+└── gradlew.bat
+```
 
 ---
 
