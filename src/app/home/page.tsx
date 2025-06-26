@@ -75,12 +75,29 @@ export default function Home() {
         const [userResponse, newsResponse] = await Promise.all([
           instance.get('/api/auth/user-info'),
           instance.get('/api/main')
-        ]);        console.log('=== 사용자 정보 ===');
-        console.log('user-info 전체 응답:', userResponse);
-        console.log('user-info 데이터:', userResponse.data);
-        console.log('user-info name 필드:', userResponse.data?.name);
+        ]);
+        console.log('=== 사용자 정보 ===');
+        console.log('user-info:', userResponse.data);
         console.log('=== /api/main 응답 데이터 ===');
         console.log('main data:', newsResponse.data);
+        console.log('newsByKeyword:', newsResponse.data?.newsByKeyword);
+        console.log(
+          'newsByKeyword 키들:',
+          Object.keys(newsResponse.data?.newsByKeyword || {})
+        );
+
+        // 각 키워드별 데이터 확인
+        if (newsResponse.data?.newsByKeyword) {
+          Object.entries(newsResponse.data.newsByKeyword).forEach(
+            ([keyword, data]) => {
+              console.log(`"${keyword}" 키워드:`, data);
+              console.log(
+                `"${keyword}" 뉴스 개수:`,
+                Array.isArray(data) ? data.length : 0
+              );
+            }
+          );
+        }
         console.log('========================');
 
         setUserInfo(userResponse.data);
@@ -112,15 +129,9 @@ export default function Home() {
           뉴스를 불러오는 중...
         </div>
       </Container>
-    );  }
-  
-  console.log('🔍 사용자 이름 설정');
-  console.log('userInfo 전체:', userInfo);
-  console.log('userInfo?.name:', userInfo?.name);
-  console.log('moke.user_name:', moke.user_name);
-  
+    );
+  }
   const userName = userInfo?.name || moke.user_name;
-  console.log('최종 userName:', userName);
   const currentDate =
     new Date().toLocaleDateString('ko-KR', {
       year: 'numeric',
@@ -132,26 +143,41 @@ export default function Home() {
   return (
     <Container>
       <ScrollWrapper>
-        <StyledHeader user_name={userName} date={currentDate} />
+        <StyledHeader user_name={userName} date={currentDate} />{' '}
         <ContentsArea>
           {newsData?.newsByKeyword ? (
-            Object.entries(newsData.newsByKeyword).map(
-              ([keyword, cards]: [string, any]) => (
-                <KeywordList
-                  key={keyword}
-                  keyword={keyword}
-                  cards={cards.map((news: any) => ({
-                    id: news.id,
-                    thumbnail_url:
-                      news.thumbnailUrl ||
-                      'https://via.placeholder.com/400x200',
-                    source: news.source,
-                    title: news.title,
-                    key_word: keyword
-                  }))}
-                />
-              )
-            )
+            (() => {
+              console.log('🔍 KeywordList 렌더링 시작');
+              const entries = Object.entries(newsData.newsByKeyword);
+              console.log(
+                '렌더링할 키워드 목록:',
+                entries.map(([keyword]) => keyword)
+              );
+
+              return entries.map(([keyword, cards]: [string, any]) => {
+                console.log(`📰 "${keyword}" 키워드 렌더링:`, {
+                  keyword,
+                  cardsCount: Array.isArray(cards) ? cards.length : 0,
+                  cards: cards
+                });
+
+                return (
+                  <KeywordList
+                    key={keyword}
+                    keyword={keyword}
+                    cards={cards.map((news: any) => ({
+                      id: news.id,
+                      thumbnail_url:
+                        news.thumbnailUrl ||
+                        'https://via.placeholder.com/400x200',
+                      source: news.source,
+                      title: news.title,
+                      key_word: keyword
+                    }))}
+                  />
+                );
+              });
+            })()
           ) : (
             <>
               <KeywordList

@@ -13,17 +13,14 @@ export default function MobileContainer({ children }: MobileContainerProps) {
 
 const Wrapper = styled.div`
   display: flex;
-
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 
   position: relative;
-  width: 390px; // iphone 14 너비
-  min-height: 812px;
+  width: 375px; // 더 작은 모바일 너비
+  min-height: 100vh;
   max-height: 100vh;
-
   margin: 0 auto;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
   overflow-x: hidden;

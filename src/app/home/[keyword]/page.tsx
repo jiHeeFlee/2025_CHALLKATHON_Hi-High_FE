@@ -136,9 +136,6 @@ const Header = styled.div`
   justify-content: center;
   position: relative;
   margin-bottom: 24px;
-  padding: 16px 0;
-  border-bottom: 1px solid #eee;
-  background-color: rgba(255, 0, 0, 0.1); /* 임시 디버깅용 */
 `;
 
 const StyledBackIcon = styled(BackIcon)`
@@ -160,11 +157,8 @@ const StyledBackIcon = styled(BackIcon)`
 
 const HeaderTitle = styled.h1`
   ${Title4}
-  color: var(--neutral-color-900);
+  color: var(--neutral-color-800);
   margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  text-align: center;
 `;
 
 const Keyword = styled.span`

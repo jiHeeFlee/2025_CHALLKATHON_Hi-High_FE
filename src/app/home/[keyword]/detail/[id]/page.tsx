@@ -15,62 +15,50 @@ export default function Detail() {
   useEffect(() => {
     const fetchArticleDetail = async () => {
       try {
-        const response = await instance.get('/api/main');
+        console.log('🔍 상세정보 API 호출 시작');
+        console.log('요청 URL:', `/api/career-news/${id}`);
+        console.log('기사 ID:', id);
 
-        // URL 키워드 디코딩
-        const decodedKeyword = decodeURIComponent(keyword as string);
+        const response = await instance.get(`/api/career-news/${id}`);
 
-        console.log('🔍 상세페이지 디버깅');
-        console.log('URL keyword (원본):', keyword);
-        console.log('URL keyword (디코딩):', decodedKeyword);
-        console.log('URL id:', id);
-        console.log(
-          'newsByKeyword 키들:',
-          Object.keys(response.data?.newsByKeyword || {})
-        );
+        console.log('🔍 상세정보 API 응답:');
+        console.log('전체 응답:', response);
+        console.log('응답 데이터:', response.data);
+        console.log('데이터 키들:', Object.keys(response.data || {}));
+        if (response.data) {
+          console.log('📄 기사 상세 정보:');
+          console.log('제목:', response.data.title);
+          console.log('내용:', response.data.content);
+          console.log('번역된 내용:', response.data.translatedContent);
+          console.log('요약:', response.data.summary);
+          console.log('본문:', response.data.article);
+          console.log('설명:', response.data.description);
+          console.log('키워드:', response.data.keywords);
+          console.log('소스:', response.data.source);
+          console.log('썸네일:', response.data.thumbnailUrl);
+          console.log('발행일:', response.data.publishedDate);
+          console.log('원문 링크:', response.data.sourceUrl);
+          console.log('🔍 모든 응답 키들:', Object.keys(response.data));
 
-        // 해당 키워드의 뉴스 중에서 해당 ID의 기사 찾기
-        const keywordNews = response.data?.newsByKeyword?.[decodedKeyword];
-        console.log(`"${decodedKeyword}" 키워드의 뉴스:`, keywordNews);
-
-        if (keywordNews && Array.isArray(keywordNews)) {
-          console.log('뉴스 리스트:');
-          keywordNews.forEach((news: any, index: number) => {
-            console.log(
-              `  ${index}: ID=${news.id} (${typeof news.id}), 제목="${news.title}"`
-            );
-          });
-
-          // ID 비교 (문자열과 숫자 모두 시도)
-          let foundArticle = keywordNews.find(
-            (news: any) => news.id.toString() === id
-          );
-          if (!foundArticle) {
-            foundArticle = keywordNews.find(
-              (news: any) => news.id === parseInt(id as string)
-            );
-          }
-          if (!foundArticle) {
-            foundArticle = keywordNews.find((news: any) => news.id === id);
-          }
-
-          console.log('찾은 기사:', foundArticle ? foundArticle.title : '없음');
-          setArticle(foundArticle);
+          setArticle(response.data);
         } else {
-          console.log('키워드에 해당하는 뉴스가 없음');
+          console.log('❌ 응답 데이터가 없습니다');
           setArticle(null);
         }
       } catch (error: any) {
-        console.error('기사 상세 정보 가져오기 실패:', error);
+        console.error('❌ 기사 상세 정보 가져오기 실패:', error);
+        console.log('에러 응답:', error.response?.data);
+        console.log('에러 상태:', error.response?.status);
+        setArticle(null);
       } finally {
         setLoading(false);
       }
     };
 
-    if (id && keyword) {
+    if (id) {
       fetchArticleDetail();
     }
-  }, [id, keyword]);
+  }, [id]);
 
   if (loading) {
     return (
@@ -100,7 +88,8 @@ export default function Detail() {
   }
   return (
     <Container>
-      {' '}      <DetailHeader>
+      {' '}
+      <DetailHeader>
         <StyledBackIcon onClick={() => router.back()} />
         <HeaderTitle>{decodeURIComponent(keyword as string)}</HeaderTitle>
       </DetailHeader>
@@ -109,14 +98,19 @@ export default function Detail() {
         alt="썸네일"
       />
       <Source>{article.source}</Source>
-      <Title dangerouslySetInnerHTML={{ __html: article.title || '' }} />
+      <Title dangerouslySetInnerHTML={{ __html: article.title || '' }} />{' '}
       <Date>
         {article.publishedDate ? article.publishedDate.split('T')[0] : ''}
       </Date>{' '}
       <Content>
+        {/* 우선순위: translatedContent > summary > content > article > description */}
         {article.translatedContent && article.translatedContent.length > 100
           ? article.translatedContent
-          : article.summary || '기사 내용이 없습니다.'}
+          : article.summary ||
+            article.content ||
+            article.article ||
+            article.description ||
+            '기사 내용이 없습니다.'}
       </Content>
       {article.sourceUrl && (
         <SourceLink
@@ -143,7 +137,6 @@ const DetailHeader = styled.div`
   justify-content: center;
   position: relative;
   margin-bottom: 24px;
-  padding: 12px 0;
 `;
 
 const StyledBackIcon = styled(BackIcon)`
@@ -238,6 +231,7 @@ const SourceLink = styled.a`
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
+  margin-bottom: 40px;
 
   &:hover {
     background-color: var(--primary-color-600);
