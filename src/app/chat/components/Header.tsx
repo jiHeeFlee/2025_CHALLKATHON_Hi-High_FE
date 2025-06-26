@@ -30,8 +30,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  position: relative;
-
   width: 100%;
 
   padding: 2.13rem;

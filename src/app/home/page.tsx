@@ -207,14 +207,23 @@ const Container = styled.div`
 
   width: 100%;
   height: 100%;
-  min-height: 100vh;
-  overflow: hidden;
+  /* min-height: 100vh; */
+  /* min-height: inherit; */
+
+  /* overflow: hidden; */
+  overflow-y: scroll;
+  scrollbar-width: none; // firefox : 스크롤바 숨김
+  -ms-overflow-style: none; // IE, Edge : 스크롤 바 숨김
+  &::-webkit-scrollbar {
+    display: none; // chrome, safari : 스크롤바 숨김
+  }
 `;
 
 const ScrollWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  /* height: 100%; */
+  height: max-content;
 
   overflow-y: auto;
   padding-bottom: 4.6875rem;

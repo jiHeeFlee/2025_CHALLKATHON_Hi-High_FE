@@ -106,10 +106,12 @@ export default function Chat() {
             )
           )}
         </ChatContentArea>
-        <ChatInput
-          onClick={handleSendMessage}
-          onScrollBottom={scrollToBottom}
-        />
+        <ChatInputWrapper>
+          <ChatInput
+            onClick={handleSendMessage}
+            onScrollBottom={scrollToBottom}
+          />
+        </ChatInputWrapper>
       </ChattingArea>
     </Container>
   );
@@ -118,11 +120,17 @@ export default function Chat() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
 
   width: 100%;
-  height: 100%;
+  /* height: inherit; */
+  max-height: 812px;
+  height: 100vh;
 
   overflow-y: hidden;
+  background-color: #fff;
+  /* position: relative; */
 `;
 
 const ChattingArea = styled.div`
@@ -130,6 +138,7 @@ const ChattingArea = styled.div`
   flex-direction: column;
   flex: 1; // 남은 영역 모두 차지
 
+  /* position: relative; */
   overflow: hidden;
 `;
 
@@ -142,10 +151,14 @@ const ChatContentArea = styled.div`
   padding: 1rem;
   gap: 1rem;
 
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: none; // firefox : 스크롤바 숨김
   -ms-overflow-style: none; // IE, Edge : 스크롤 바 숨김
   &::-webkit-scrollbar {
     display: none; // chrome, safari : 스크롤바 숨김
   }
+`;
+
+const ChatInputWrapper = styled.div`
+  flex: 0 0 auto; /* 고정 높이 */
 `;

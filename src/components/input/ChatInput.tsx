@@ -52,6 +52,8 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  bottom: 0;
 
   width: 100%;
   height: 4.6875rem;

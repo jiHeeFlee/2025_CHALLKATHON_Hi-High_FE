@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 import MobileContainer from '@/components/MobileContainer';
+import { Z_ASCII } from 'zlib';
 
 export const metadata: Metadata = {
   title: 'Hi-High',
@@ -32,7 +33,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css"
         />
       </head>
-      <body style={{ backgroundColor: '#f5f5f5' }}>
+      <body style={{ backgroundColor: '#fff' }}>
         <MobileContainer>{children}</MobileContainer>
       </body>
     </html>

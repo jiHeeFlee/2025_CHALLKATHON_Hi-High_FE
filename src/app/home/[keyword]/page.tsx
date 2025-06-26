@@ -127,7 +127,16 @@ export default function KeywordDetailPage() {
 const Container = styled.div`
   padding: 40px 28px 28px 28px;
   background-color: #fff;
-  min-height: 100vh;
+  width: 100%;
+  /* min-height: 100vh; */
+  min-height: inherit;
+
+  overflow-y: scroll;
+  scrollbar-width: none; // firefox : 스크롤바 숨김
+  -ms-overflow-style: none; // IE, Edge : 스크롤 바 숨김
+  &::-webkit-scrollbar {
+    display: none; // chrome, safari : 스크롤바 숨김
+  }
 `;
 
 const Header = styled.div`
