@@ -160,5 +160,5 @@ const ChatContentArea = styled.div`
 `;
 
 const ChatInputWrapper = styled.div`
-  flex: 0 0 auto; /* 고정 높이 */
+  // flex: 0 0 auto; /* 고정 높이 */
 `;
